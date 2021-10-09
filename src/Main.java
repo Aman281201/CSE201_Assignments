@@ -1,7 +1,9 @@
 import classes.Hospital;
+import classes.User;
 import classes.Vaccine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -9,6 +11,11 @@ public class Main {
     public static ArrayList<Vaccine> vaccines = new ArrayList<Vaccine>();
     public static int hospitalID = 100000;
     public static Scanner sc = new Scanner(System.in);
+    public static HashMap<String, Integer> citizenID = new HashMap<>();
+
+
+
+
     public static void addVaccine()
     {
         System.out.println("Enter vaccine name : ");
@@ -18,7 +25,7 @@ public class Main {
         System.out.println("Gap between doses : ");
         int gap = sc.nextInt();
 
-        Vaccine v = new Vaccine(name,no_of_doses,gap);
+        Vaccine v = new Vaccine(name, no_of_doses, gap);
         vaccines.add(v);
 
         System.out.println("\nVaccine Name: "+ name + ", Number of Doses: " + no_of_doses + ", Gap between Doses: " + gap);
@@ -39,6 +46,38 @@ public class Main {
         System.out.println("\nHospital Name: "+ name + ", PinCode: " + pin + ", Unique ID: " + hospitalID);
         System.out.println("\n___________________________________");
 
+    }
+
+    public static void regCitizen()
+    {
+        String name, uniqueID;
+        int age;
+        boolean isEligible = true, isUnique = false;
+        System.out.println("Enter Citizen name : ");
+        name = sc.next();
+        System.out.println("Age : ");
+        age = sc.nextInt();
+
+        do {
+            System.out.println("Enter Unique ID (12 digits): ");
+            uniqueID = sc.next();
+            if(citizenID.get(uniqueID) == null)
+                isUnique = true;
+            else
+                System.out.println("User already exists with this ID\n");
+        }while (!isUnique);
+
+        citizenID.put(uniqueID,1);
+
+        if(age < 18)
+            isEligible = false;
+
+        User u = new User(name,age,uniqueID,isEligible);
+
+        System.out.println("\nCitizen Name: "+ name + ", age: " + age + ", Unique ID: " + uniqueID);
+        if(!isEligible)
+            System.out.println("\nOnly 18 above are allowed for vaccination");
+        System.out.println("\n___________________________________");
     }
 
     public static void main(String[] args)
@@ -70,7 +109,7 @@ public class Main {
                     break;
                 case 2: regHospital();
                     break;
-                case 3:
+                case 3: regCitizen();
                     break;
                 case 4:
                     break;
