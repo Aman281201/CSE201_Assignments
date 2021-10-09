@@ -1,6 +1,37 @@
+import classes.Vaccine;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
+    public static ArrayList<Vaccine> vaccines = new ArrayList<Vaccine>();
+    public static int hospitalID = 100001;
+
+    public static void addVaccine()
+    {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter vaccine name : ");
+        String name = sc.next();
+        System.out.println("Number of doses : ");
+        int no_of_doses = sc.nextInt();
+        System.out.println("Gap between doses : ");
+        int gap = sc.nextInt();
+
+        Vaccine v = new Vaccine(name,no_of_doses,gap);
+        vaccines.add(v);
+
+        System.out.println("\nVaccine Name: "+ name + ", Number of Doses: " + no_of_doses + ", Gap between Doses: " + gap);
+        System.out.println("\n___________________________________");
+
+    }
+
+    public static void regHospital()
+    {
+
+    }
+
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
@@ -25,9 +56,9 @@ public class Main {
 
             switch(choice)
             {
-                case 1:
+                case 1: addVaccine();
                     break;
-                case 2:
+                case 2: regHospital();
                     break;
                 case 3:
                     break;
