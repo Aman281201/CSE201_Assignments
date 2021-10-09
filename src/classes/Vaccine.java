@@ -3,10 +3,11 @@ package classes;
 import java.util.ArrayList;
 
 public class Vaccine {
-    String name;
-    int no_of_doses;
-    int gap;
+    public String name;
+    public int no_of_doses;
+    public int gap;
     ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+    ArrayList<Slots> slots = new ArrayList<Slots>();
 
     public Vaccine(String n, int dose, int gp)
     {
@@ -15,8 +16,10 @@ public class Vaccine {
         gap = gp;
     }
 
-    public void addHospital(Hospital H)
+    public void addHospitalSlots(Hospital H, Slots s)
     {
         hospitals.add(H);
+        slots.add(s);
     }
+
 }
