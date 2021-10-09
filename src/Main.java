@@ -1,3 +1,4 @@
+import classes.Hospital;
 import classes.Vaccine;
 
 import java.util.ArrayList;
@@ -6,12 +7,10 @@ import java.util.Scanner;
 public class Main {
 
     public static ArrayList<Vaccine> vaccines = new ArrayList<Vaccine>();
-    public static int hospitalID = 100001;
-
+    public static int hospitalID = 100000;
+    public static Scanner sc = new Scanner(System.in);
     public static void addVaccine()
     {
-
-        Scanner sc = new Scanner(System.in);
         System.out.println("Enter vaccine name : ");
         String name = sc.next();
         System.out.println("Number of doses : ");
@@ -29,6 +28,16 @@ public class Main {
 
     public static void regHospital()
     {
+        String name, pin;
+        System.out.println("Enter Hospital name : ");
+        name = sc.next();
+        System.out.println("PinCode : ");
+        pin = sc.next();
+
+        Hospital h = new Hospital(name, pin, ++hospitalID);
+
+        System.out.println("\nHospital Name: "+ name + ", PinCode: " + pin + ", Unique ID: " + hospitalID);
+        System.out.println("\n___________________________________");
 
     }
 
@@ -42,6 +51,7 @@ public class Main {
 
         do{
             System.out.println("""
+                     
                      1) Add Vaccine
                      2) Register Hospital
                      3) Register Citizen
