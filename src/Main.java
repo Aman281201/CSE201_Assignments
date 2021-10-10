@@ -208,9 +208,9 @@ public class Main {
                         }
                         for (int i = 0; i < h.slots.size(); i++) {
                             Slots s = h.slots.get(i);
-                            if(!(patient.status.curStatus.equalsIgnoreCase("PARTIALLY VACCINATED") && patient.status.nextDose > s.day)) ;
+                            if(patient.status.nextDose <= s.day)
                              {
-                                 //System.out.println(patient.status.nextDose + "  " + s.day);
+//                                 System.out.println(patient.status.nextDose + "  " + s.day + "  " + (patient.status.nextDose>s.day));
                                 if (s.quantity > 0)
                                     System.out.println(i + ") Day " + s.day + " Available Qty : " + s.quantity + " Vaccine : " + s.vaccine.name + "\n");
                                 else
@@ -228,10 +228,11 @@ public class Main {
 
                             System.out.println(patient.name + " vaccinated with " + slot.vaccine.name + "\n");
                             System.out.println("_____________________\n");
-
+                            int nd;
                             patient.status.doses++;
-                            if (patient.status.doses < slot.vaccine.no_of_doses)
-                                patient.setStatus("PARTIALLY VACCINATED", slot.vaccine, patient.status.doses, slot.day + slot.vaccine.gap);
+                            if (patient.status.doses < slot.vaccine.no_of_doses){
+                                nd = slot.day + slot.vaccine.gap;
+                                patient.setStatus("PARTIALLY VACCINATED", slot.vaccine, patient.status.doses, nd);}
                             else
                                 patient.setStatus("FULLY VACCINATED", slot.vaccine, patient.status.doses, 0);
                             return;
