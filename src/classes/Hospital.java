@@ -14,7 +14,7 @@ public class Hospital {
         pincode = pc;
         uniqueID = uID;
     }
-    void addSlots(Slots s)
+    public void addSlots(Slots s)
     {
         slots.add(s);
     }

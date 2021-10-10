@@ -4,7 +4,7 @@ public class Status  {
     public String curStatus;
     public Vaccine vaccine;
     public int doses;
-    int nextDose;
+    public int nextDose;
 
     public Status(String st, Vaccine vac, int dose, int nd)
     {

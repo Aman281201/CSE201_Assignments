@@ -124,6 +124,7 @@ public class Main {
             vac = sc.nextInt();
             Vaccine v = vaccines.get(vac);
             Slots s = new Slots(day_num, qty, v);
+            h.addSlots(s);
             v.addHospitalSlots(h, s);
             System.out.println("\nSlot added by Hospital " + hosID + " for Day " + day_num + ", Available Quantity: " + qty + " of vaccine " + v.name+"\n");
         }
@@ -148,6 +149,8 @@ public class Main {
                 System.out.println("This citizen does not exist (enter 0 to exit)\n");
             }
         }while(!isCorrect);
+
+        User patient = citizenID.get(patientID);
 
         int res;
         do {
@@ -184,9 +187,15 @@ public class Main {
                             v = sc.next();
                             Vaccine vac = null;
                             for(int i = 0; i< vaccines.size(); i++)
-                                if(vaccines.get(i).name == v)
+                                if(vaccines.get(i).name.equalsIgnoreCase(v))
                                     vac = vaccines.get(i);
-                            
+
+                            if(vac == null)
+                            {
+                                System.out.println("Invalid vaccine name, try again");
+                                return;
+                            }
+
                             for(int i = 0; i < vac.hospitals.size(); i++)
                                     System.out.println(vac.hospitals.get(i).uniqueID + " " + vac.hospitals.get(i).name + "\n");
                         }
@@ -199,26 +208,33 @@ public class Main {
                         }
                         for (int i = 0; i < h.slots.size(); i++) {
                             Slots s = h.slots.get(i);
-                            if (s.quantity > 0)
-                                System.out.println(i + ") Day " + s.day + " Available Qty : " + s.quantity + " Vaccine : " + s.vaccine + "\n");
-                            else
-                                System.out.println(i + ") Day " + s.day + " Unavailable Qty : " + s.quantity + " Vaccine : " + s.vaccine + "\n");
+                            if(!(patient.status.curStatus.equalsIgnoreCase("PARTIALLY VACCINATED") && patient.status.nextDose > s.day)) ;
+                             {
+                                 //System.out.println(patient.status.nextDose + "  " + s.day);
+                                if (s.quantity > 0)
+                                    System.out.println(i + ") Day " + s.day + " Available Qty : " + s.quantity + " Vaccine : " + s.vaccine.name + "\n");
+                                else
+                                    System.out.println(i + ") Day " + s.day + " Unavailable Qty : " + s.quantity + " Vaccine : " + s.vaccine.name + "\n");
+                            }
                         }
                         System.out.println("choose slot : ");
+
                         slot_num = sc.nextInt();
 
                         Slots slot = h.slots.get(slot_num);
 
                         if (slot.quantity > 0) {
                             slot.quantity = slot.quantity - 1;
-                            User patient = citizenID.get(patientID);
+
                             System.out.println(patient.name + " vaccinated with " + slot.vaccine.name + "\n");
                             System.out.println("_____________________\n");
 
-                            if (patient.status.doses < slot.vaccine.no_of_doses - 1)
-                                patient.setStatus("PARTIALLY VACCINATED", slot.vaccine, ++patient.status.doses, slot.day + slot.vaccine.gap);
+                            patient.status.doses++;
+                            if (patient.status.doses < slot.vaccine.no_of_doses)
+                                patient.setStatus("PARTIALLY VACCINATED", slot.vaccine, patient.status.doses, slot.day + slot.vaccine.gap);
                             else
-                                patient.setStatus("FULLY VACCINATED", slot.vaccine, ++patient.status.doses, 0);
+                                patient.setStatus("FULLY VACCINATED", slot.vaccine, patient.status.doses, 0);
+                            return;
 
                         } else {
                             System.out.println("This slot is unavailable, slot booking failed, please select other slot");
@@ -230,9 +246,70 @@ public class Main {
 
     }
 
+    public static void listSlots()
+    {
+        int hosID;
+        Hospital h;
+        boolean isCorrect = true;
+        do {
+            System.out.println("Enter Hospital ID (6 digits): ");
+            hosID = sc.nextInt();
+
+            if(hosID == 0)
+                return;
+            h = hospitals.get(hosID);
+
+            if(h == null)
+                System.out.println("Hospital with this ID DoesNot exist (enter 0 to exit)");
+            else {
+                isCorrect = true;
+            }
+        }while (!isCorrect);
+        for(int i = 0; i < h.slots.size(); i++) {
+            Slots s = h.slots.get(i);
+            if (s.quantity > 0)
+                System.out.println(i + ") Day " + s.day + " Available Qty : " + s.quantity + " Vaccine : " + s.vaccine.name + "\n");
+            else
+                System.out.println(i + ") Day " + s.day + " Unavailable Qty : " + s.quantity + " Vaccine : " + s.vaccine.name + "\n");
+        }
+    }
+
+
+
+    public static void checkStatus()
+    {
+        boolean isCorrect = true;
+        String patientID;
+        do {
+            System.out.println("Enter patient ID : ");
+            patientID = sc.next();
+
+            if(patientID == "0")
+                return;
+
+            if(citizenID.get(patientID) == null)
+            {isCorrect = false;
+                System.out.println("Invalid ID, Enter again (press 0 to exit)\n");}
+
+
+        }while(!isCorrect);
+
+        User u = citizenID.get(patientID);
+        System.out.println(u.status.curStatus +"\n");
+
+        if(!u.status.curStatus.equalsIgnoreCase("REGISTERED"))
+        {System.out.println("Vaccine given : " + u.status.vaccine.name + "\n");
+        System.out.println("Number of doses given : " + u.status.doses+"\n");}
+        else{
+            {System.out.println("Vaccine given : NA\n");
+                System.out.println("Number of doses given : 0\n");}
+        }
+        System.out.println("________________________________________");
+    }
+
+
     public static void main(String[] args)
     {
-        Scanner sc = new Scanner(System.in);
 
         int choice;
 
@@ -265,9 +342,9 @@ public class Main {
                     break;
                 case 5: bookSlot();
                     break;
-                case 6:
+                case 6: listSlots();
                     break;
-                case 7:
+                case 7: checkStatus();
                     break;
                 case 8:
                     System.out.println("exiting CoWin portal");
