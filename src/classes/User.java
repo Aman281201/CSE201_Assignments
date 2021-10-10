@@ -1,10 +1,10 @@
 package classes;
 
 public class User {
-    String name;
+    public String name;
     int age;
     String userID;
-    Status status;
+    public Status status;
     Boolean eligible;
 
     public User(String n, int a, String uID, Boolean elig)
@@ -14,9 +14,9 @@ public class User {
         userID = uID;
         eligible = elig;
 
-        status = new Status("REGISTERED","NA",0,0);
+        status = new Status("REGISTERED",null,0,0);
     }
-    void setStatus(String st, String vac, int dose, int nd)
+    public void setStatus(String st, Vaccine vac, int dose, int nd)
     {
         status = new Status(st,vac,dose,nd);
     }

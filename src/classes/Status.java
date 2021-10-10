@@ -1,12 +1,12 @@
 package classes;
 
 public class Status  {
-    String curStatus;
-    String vaccine;
-    int doses;
+    public String curStatus;
+    public Vaccine vaccine;
+    public int doses;
     int nextDose;
 
-    Status(String st, String vac, int dose, int nd)
+    public Status(String st, Vaccine vac, int dose, int nd)
     {
         curStatus = st;
         vaccine = vac;

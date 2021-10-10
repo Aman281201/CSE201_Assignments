@@ -3,10 +3,10 @@ package classes;
 import java.util.ArrayList;
 
 public class Hospital {
-    String name;
+    public String name;
     String pincode;
-    int uniqueID;
-    ArrayList<Slots> slots = new ArrayList<Slots>();
+    public int uniqueID;
+    public ArrayList<Slots> slots = new ArrayList<Slots>();
 
     public Hospital(String n, String pc, int uID)
     {
