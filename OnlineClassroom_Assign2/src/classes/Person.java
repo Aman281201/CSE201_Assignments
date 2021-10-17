@@ -11,11 +11,28 @@ public interface Person {
 
 class Instructor implements Person
 {
-    @override
+    String name;
+
+    Instructor(String name)
+    {
+        this.name = name;
+    }
+
     public void showMenu()
     {
         System.out.println("""
-                1.
+                
+                (Instructor Menu)
+                1. Add class material
+                2. Add assessments
+                3. View lecture materials
+                4. View assessments
+                5. Grade assessments
+                6. Close assessments
+                7. View comments
+                8. Add comments
+                9. Logout
+                
                 """);
     }
 
@@ -33,11 +50,18 @@ class Instructor implements Person
 
 class Student implements Person
 {
-    @override
     public void showMenu()
     {
         System.out.println("""
-                1.
+                
+                (Student menu)
+                1. View lecture materials
+                2. View assessment
+                3. Submit assessment
+                4. View grades
+                5. View comments
+                6. Add comments
+                7. Logout
                 
                 """);
     }
