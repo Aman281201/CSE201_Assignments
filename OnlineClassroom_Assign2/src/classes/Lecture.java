@@ -2,30 +2,51 @@ package classes;
 
 import java.util.Date;
 
-public class Lecture {
-
-
+interface Lecture{
+    void showData();
 }
 
-public class Slides {
-    Date date;
+class Slides implements Lecture{
+    private Date date;
+    private Human author;
+    private String topic;
+    private int numSlides;
+    private String[] content;
 
-    Slides(Date date)
-    {
-        this.date = date;
+    Slides(Human author, String topic, int numSlides, String[] content) {
+
+        this.date = new Date();
+        this.author = author;
+        this.topic = topic;
+        this.numSlides = numSlides;
+        this.content = content;
     }
-    public void showData()
-    {
+
+    @Override
+    public void showData() {
 
     }
+}
 
-public class Video{
+class Video implements Lecture{
 
-        Date d;
+        private Date date;
+        private String topic;
+        private String filename;
+        private Human author;
 
+        Video (String topic, String filename, Human author)
+        {
+            this.date = new Date();
+            this.topic = topic;
+            this.filename = filename;
+            this.author = author;
+        }
+
+        @Override
         public void showData()
         {
 
         }
 }
-}
+

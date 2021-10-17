@@ -5,9 +5,9 @@ import java.util.Date;
 public class Comment {
     private Date createdAt;
     private String body;
-    private Person createdBy;
+    private Human createdBy;
 
-    Comment(String body, Person person)
+    Comment(String body, Human person)
     {
         createdAt = new Date();
         this.body = body;
