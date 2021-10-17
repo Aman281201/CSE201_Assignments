@@ -1,8 +1,8 @@
 import classes.Human;
 import classes.Human.*;
+import classes.Lectures.*;
 
-import javax.crypto.spec.PSource;
-import java.lang.reflect.Array;
+import javax.swing.plaf.SliderUI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,8 +12,61 @@ public class Main {
     public static ArrayList<Instructor> instructors = new ArrayList<>();
     public static ArrayList<Student> students = new ArrayList<>();
     public static Scanner sc =  new Scanner(System.in);
+    public static Person user;
 
+    public static <Lecture> void addLecture()
+    {
+        int choice;
 
+        System.out.println("""
+                
+                1. Add Lecture Slide
+                2. Add lecture Video
+                
+                Enter choice
+                """);
+
+        choice = sc.nextInt();
+        if(choice == 1)
+        {
+            String topic;
+            int numSlides;
+            String[] content;
+
+            System.out.println("enter the topic of the video");
+            topic = sc.nextLine();
+            System.out.println("Enter the number of slides");
+            numSlides = sc.nextInt();
+
+            content = new String[numSlides];
+            for(int i = 0; i < numSlides; i++)
+            {
+                System.out.println("Content of slide " + (i+1) + " : ");
+                content[i] = sc.nextLine();
+            }
+
+            Lecture slides = (Lecture) new Slides((Human) user, topic, numSlides, content);
+
+        }
+        else if (choice == 2)
+        {
+            String topic, filename;
+            System.out.println("Enter the topic of the video");
+            topic = sc.nextLine();
+            System.out.println("Enter the filename of video");
+            filename = sc.nextLine();
+
+            boolean isCorrect = false;
+            
+            do{
+                isCorrect = (filename.split(".")[1] == ".mp4");
+                System.out.println("please upload videos with .mp4 extension");
+            }while(!isCorrect);
+
+        }
+        else System.out.println("please enter correct choice");
+
+    }
     public static void instructorLogin() {
 
         int choice, res;
@@ -24,7 +77,7 @@ public class Main {
         System.out.println("choose id\n");
         choice = sc.nextInt();
 
-        Person user = instructors.get(choice);
+        user = instructors.get(choice);
 
         do{
             System.out.println("Welcome " + user.getId() + "\n");
@@ -32,7 +85,7 @@ public class Main {
             res = sc.nextInt();
 
             switch(res){
-                case 1:
+                case 1: addLecture();
                     break;
                 case 2:
                     break;
