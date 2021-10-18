@@ -20,6 +20,7 @@ public class Main {
     public static ArrayList<Assessment> assessments = new ArrayList<>();
     public static Scanner sc =  new Scanner(System.in).useDelimiter("\\n");
     public static Instructor user;
+    public static Student submitter;
 
     public static void addLecture()
     {
@@ -149,19 +150,25 @@ public class Main {
 
     public static void gradeAssessments()
     {
-        int id;
+        int id, studId;
 
         System.out.println("List of assessments\n");
         viewAssessments();
         System.out.println("enter the Id to view submissions");
         id = sc.nextInt();
 
-        Assessment ass = assessments.get(id);
+        Assessment ass;
+        if(assessments.get(id).getType().equals("Assignment"))
+            ass = (Assignment) assessments.get(id);
+        else ass = (Quiz) assessments.get(id);
 
-        for(int i = 0; i < ass.Ssize(); i++)
+        for(int i = 0; i < ass.getSubmissions().size(); i++)
         {
-            System.out.println(i + " - " + ass.Submissions.get(i).author.getId());
+            System.out.println(i + " - " + ass.getSubmissions().get(i).getAuthor().getId() + "\n");
         }
+        System.out.println("Enter the id :");
+         studId = sc.nextInt();
+         
     }
 
 

@@ -1,8 +1,14 @@
 package classes.Human;
 
+import classes.Evaluation.Assessment;
+
+import java.lang.reflect.Array;
+import java.util.HashMap;
+
 public class Student implements Person {
 
-    String id;
+    private String id;
+    private HashMap<Assessment,Submission> submissions = new HashMap<>();
 
     public Student(String id)
     {
@@ -15,9 +21,13 @@ public class Student implements Person {
         return id;
     }
 
+    public HashMap<Assessment, Submission> getSubmissions()
+    {
+        return submissions;
+    }
+
+
     public void showMenu() {
-
-
         System.out.println("""
                                     
                     (Student menu)
@@ -32,6 +42,7 @@ public class Student implements Person {
                     Enter your choice
                     """);
     }
+
 
     public void getComments() {
 

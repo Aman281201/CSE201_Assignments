@@ -3,10 +3,13 @@ package classes.Human;
 import classes.Evaluation.Assessment;
 
 public class Submission {
-    Assessment assessment;
-    String answer;
-    String filename;
-    Person author;
+    private Assessment assessment;
+    private String answer;
+    private String filename;
+    private Person author;
+    private float marks;
+    private boolean isOpen;
+    private Person gradedBy;
 
     Submission(String answer, Assessment assessment, Person author)
     {
@@ -20,5 +23,13 @@ public class Submission {
         this.assessment = assessment;
         this.filename = filename;
         this.author = author;
+    }
+    public void setMarks(float marks)
+    {
+        this.marks = marks;
+    }
+    public Person getAuthor()
+    {
+        return this.author;
     }
 }

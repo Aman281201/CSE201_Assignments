@@ -9,7 +9,7 @@ import java.util.Date;
 public class Quiz implements Assessment {
 
     private String question;
-    private int maxMarks;
+    private String type;
     private Instructor author;
     private Date date;
     private ArrayList<Submission> submissions;
@@ -18,23 +18,29 @@ public class Quiz implements Assessment {
     public Quiz()                                           // function overload
     {
         this.date = new Date();
+        this.type = "Quiz";
     }
 
     public Quiz(String question, Instructor author) {
         this.question = question;
         this.author = author;
-        this.maxMarks = maxMarks;
         this.date = new Date();
+        this.type = "Quiz";
     }
 
     public void addSubmissions(Submission sub)
     {
         this.submissions.add(sub);
     }
-    
+
+    public String getType()
+    {
+        return this.type;
+    }
+
     @Override
     public void showData(int i) {
-        System.out.println("ID: " + i + " : Question: " + question + "  Max Marks : " + maxMarks + "\n");
+        System.out.println("ID: " + i + " : Question: " + question + "\n");
 
     }
 }

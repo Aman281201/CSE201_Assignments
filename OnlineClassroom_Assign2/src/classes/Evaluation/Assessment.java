@@ -2,7 +2,11 @@ package classes.Evaluation;
 
 import classes.Human.Submission;
 
+import java.util.ArrayList;
+
 public interface Assessment {
         void showData(int i);
-        public void addSubmissions(Submission sub);
+        void addSubmissions(Submission sub);
+        String getType();
+        ArrayList<Submission> getSubmissions();
     }
