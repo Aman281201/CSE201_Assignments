@@ -1,8 +1,12 @@
-import classes.Human;
-import classes.Human.*;
-import classes.Lectures.*;
 
-import javax.swing.plaf.SliderUI;
+import classes.Evaluation.Assessment;
+import classes.Evaluation.Assignment;
+import classes.Evaluation.Quiz;
+import classes.Human.Human.*;
+import classes.Lectures.Lecture;
+import classes.Lectures.Lecture.*;
+import classes.Lectures.Slides;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,8 +15,9 @@ public class Main {
 
     public static ArrayList<Instructor> instructors = new ArrayList<>();
     public static ArrayList<Student> students = new ArrayList<>();
+    public static ArrayList<Lecture> lectures = new ArrayList<>();
     public static Scanner sc =  new Scanner(System.in);
-    public static Person user;
+    public static Instructor user;
 
     public static <Lecture> void addLecture()
     {
@@ -45,7 +50,10 @@ public class Main {
                 content[i] = sc.nextLine();
             }
 
-            Lecture slides = (Lecture) new Slides((Human) user, topic, numSlides, content);
+            Lecture slides = new Slides( user, topic, numSlides, content);
+
+
+            lectures.add((classes.Lectures.Lecture) slides);
 
         }
         else if (choice == 2)
@@ -57,16 +65,67 @@ public class Main {
             filename = sc.nextLine();
 
             boolean isCorrect = false;
-            
+
             do{
-                isCorrect = (filename.split(".")[1] == ".mp4");
+                String[] a = filename.split(".");
+
+                isCorrect = (a[a.length - 1] == ".mp4");
                 System.out.println("please upload videos with .mp4 extension");
             }while(!isCorrect);
+
+            Lecture vid = (Lecture) new Video(topic, filename, user);
+
+            System.out.println("file uploaded\n");
+            lectures.add((classes.Lectures.Lecture) vid);
 
         }
         else System.out.println("please enter correct choice");
 
     }
+
+    public static void addAssessment()
+    {
+
+        int choice;
+
+        System.out.println("""
+                1. Add Assignment
+                2. Add Quiz
+                
+                Enter your choice
+                """);
+        choice = sc.nextInt();
+
+        if(choice == 1)
+        {
+            String statement;
+            int maxMarks;
+
+            System.out.println("enter problem statement");
+            statement = sc.nextLine();
+            System.out.println("Enter maxMarks");
+            maxMarks = sc.nextInt();
+
+            Assessment assignment = new Assignment(statement, maxMarks, user);
+            System.out.println("added assignment\n");
+        }
+
+        else if (choice == 2)
+        {
+            String question;
+
+            System.out.println("enter quiz question");
+            question = sc.nextLine();
+
+            Assessment quiz = new Quiz(question , user);
+            System.out.println("added assignment\n");
+        }
+    }
+
+
+
+
+
     public static void instructorLogin() {
 
         int choice, res;
@@ -87,7 +146,7 @@ public class Main {
             switch(res){
                 case 1: addLecture();
                     break;
-                case 2:
+                case 2: addAssessment();
                     break;
                 case 3:
                     break;

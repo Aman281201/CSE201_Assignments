@@ -1,4 +1,4 @@
-package classes;
+package classes.Human;
 
 public class Human {
     public interface Person {

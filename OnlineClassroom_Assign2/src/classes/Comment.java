@@ -1,5 +1,7 @@
 package classes;
 
+import classes.Human.Human;
+
 import java.util.Date;
 
 public class Comment {
