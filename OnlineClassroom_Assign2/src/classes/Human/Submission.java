@@ -3,6 +3,7 @@ package classes.Human;
 import classes.Evaluation.Assessment;
 
 public class Submission {
+    private String type;
     private Assessment assessment;
     private String answer;
     private String filename;
@@ -16,6 +17,7 @@ public class Submission {
         this.answer = answer;
         this.assessment = assessment;
         this.author = author;
+        this.type = "Quiz";
     }
 
     Submission(Assessment assessment, String filename, Person author)
@@ -23,6 +25,7 @@ public class Submission {
         this.assessment = assessment;
         this.filename = filename;
         this.author = author;
+        this.type = "Assignment";
     }
     public void setMarks(float marks)
     {
@@ -32,4 +35,9 @@ public class Submission {
     {
         return this.author;
     }
+    public String getType()
+    {
+        return type;
+    }
+
 }

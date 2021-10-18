@@ -167,8 +167,14 @@ public class Main {
             System.out.println(i + " - " + ass.getSubmissions().get(i).getAuthor().getId() + "\n");
         }
         System.out.println("Enter the id :");
-         studId = sc.nextInt();
-         
+        studId = sc.nextInt();
+
+        System.out.println("Submission\n");
+        Submission cur = ass.getSubmissions().get(studId);
+        Student stud = (Student) cur.getAuthor();
+
+        System.out.println(cur.getfilename);
+
     }
 
 
