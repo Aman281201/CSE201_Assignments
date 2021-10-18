@@ -1,8 +1,9 @@
 package classes.Evaluation;
 
 import classes.Human.Instructor;
-import classes.Human.Person;
+import classes.Human.Submission;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Quiz implements Assessment {
@@ -11,6 +12,8 @@ public class Quiz implements Assessment {
     private int maxMarks;
     private Instructor author;
     private Date date;
+    private ArrayList<Submission> submissions;
+
 
     public Quiz()                                           // function overload
     {
@@ -24,7 +27,14 @@ public class Quiz implements Assessment {
         this.date = new Date();
     }
 
+    public void addSubmissions(Submission sub)
+    {
+        this.submissions.add(sub);
+    }
+    
     @Override
-    public void showData() {
+    public void showData(int i) {
+        System.out.println("ID: " + i + " : Question: " + question + "  Max Marks : " + maxMarks + "\n");
+
     }
 }

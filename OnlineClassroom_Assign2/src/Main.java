@@ -4,7 +4,6 @@ import classes.Evaluation.Assignment;
 import classes.Evaluation.Quiz;
 import classes.Human.Instructor;
 import classes.Human.*;
-//import classes.Human.Person.*;
 import classes.Human.Student;
 import classes.Lectures.*;
 
@@ -18,7 +17,8 @@ public class Main {
     public static ArrayList<Instructor> instructors = new ArrayList<>();
     public static ArrayList<Student> students = new ArrayList<>();
     public static ArrayList<Lecture> lectures = new ArrayList<>();
-    public static Scanner sc =  new Scanner(System.in);
+    public static ArrayList<Assessment> assessments = new ArrayList<>();
+    public static Scanner sc =  new Scanner(System.in).useDelimiter("\\n");
     public static Instructor user;
 
     public static void addLecture()
@@ -40,8 +40,8 @@ public class Main {
             int numSlides;
             String[] content;
 
-            System.out.println("enter the topic of the video");
-            topic = sc.nextLine();
+            System.out.println("enter the topic");
+            topic = sc.next();
             System.out.println("Enter the number of slides");
             numSlides = sc.nextInt();
 
@@ -49,7 +49,7 @@ public class Main {
             for(int i = 0; i < numSlides; i++)
             {
                 System.out.println("Content of slide " + (i+1) + " : ");
-                content[i] = sc.nextLine();
+                content[i] = sc.next();
             }
 
             Lecture slides = new Slides(user, topic, numSlides, content);
@@ -62,23 +62,25 @@ public class Main {
         {
             String topic, filename;
             System.out.println("Enter the topic of the video");
-            topic = sc.nextLine();
+            topic = sc.next();
             System.out.println("Enter the filename of video");
-            filename = sc.nextLine();
+
 
             boolean isCorrect = false;
 
             do{
-                String[] a = filename.split(".");
+                filename = sc.next();
+                String[] a = filename.split("[.]");
 
-                isCorrect = (a[a.length - 1] == ".mp4");
+                isCorrect = (a[a.length - 1].equals("mp4"));
+                System.out.println(a[a.length - 1] + " " + isCorrect);
                 System.out.println("please upload videos with .mp4 extension");
             }while(!isCorrect);
 
             Lecture vid = new Video(topic, filename, user);
 
             System.out.println("file uploaded\n");
-            lectures.add((classes.Lectures.Lecture) vid);
+            lectures.add((Lecture) vid);
 
         }
         else System.out.println("please enter correct choice");
@@ -104,11 +106,12 @@ public class Main {
             int maxMarks;
 
             System.out.println("enter problem statement");
-            statement = sc.nextLine();
+            statement = sc.next();
             System.out.println("Enter maxMarks");
             maxMarks = sc.nextInt();
 
             Assessment assignment = new Assignment(statement, maxMarks, user);
+            assessments.add(assignment);
             System.out.println("added assignment\n");
         }
 
@@ -117,14 +120,49 @@ public class Main {
             String question;
 
             System.out.println("enter quiz question");
-            question = sc.nextLine();
+            question = sc.next();
 
             Assessment quiz = new Quiz(question , user);
+            assessments.add(quiz);
             System.out.println("added assignment\n");
         }
     }
 
+    public static void showLectures()
+    {
+        for(int i = 0; i < lectures.size(); i++)
+        {
+            lectures.get(i).showData();
+            System.out.println("\n\n");
+        }
 
+    }
+
+    public static void viewAssessments()
+    {
+        for(int i = 0; i < assessments.size(); i++)
+        {
+            assessments.get(i).showData(i);
+            System.out.println("____________________");
+        }
+    }
+
+    public static void gradeAssessments()
+    {
+        int id;
+
+        System.out.println("List of assessments\n");
+        viewAssessments();
+        System.out.println("enter the Id to view submissions");
+        id = sc.nextInt();
+
+        Assessment ass = assessments.get(id);
+
+        for(int i = 0; i < ass.Ssize(); i++)
+        {
+            System.out.println(i + " - " + ass.Submissions.get(i).author.getId());
+        }
+    }
 
 
 
@@ -150,15 +188,15 @@ public class Main {
                     break;
                 case 2: addAssessment();
                     break;
-                case 3:
+                case 3: showLectures();
                     break;
-                case 4:
+                case 4: viewAssessments();
                     break;
-                case 5:
+                case 5: gradeAssessments();
                     break;
                 case 6:
                     break;
-                case  7:
+                case 7:
                     break;
                 case 8:
                     break;
