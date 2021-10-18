@@ -1,6 +1,7 @@
 package classes.Lectures;
 
-import classes.Human.Human;
+import classes.Human.Instructor;
+import classes.Human.Person;
 
 import java.util.Date;
 
@@ -9,10 +10,10 @@ public class Video implements Lecture {
     private Date date;
     private String topic;
     private String filename;
-    private Human.Instructor author;
+    private Instructor author;
     private String type;
 
-    public Video(String topic, String filename, Human.Instructor author) {
+    public Video(String topic, String filename, Instructor author) {
         this.date = new Date();
         this.topic = topic;
         this.filename = filename;

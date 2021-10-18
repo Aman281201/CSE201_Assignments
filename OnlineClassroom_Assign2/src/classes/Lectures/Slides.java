@@ -1,18 +1,18 @@
 package classes.Lectures;
 
-import classes.Human.Human;
-
+import classes.Human.Instructor;
+import classes.Human.Person;
 import java.util.Date;
 
 public class Slides implements Lecture {
     private String type;
     private Date date;
-    private Human.Instructor author;
+    private Instructor author;
     private String topic;
     private int numSlides;
     private String[] content;
 
-    public Slides(Human.Instructor author, String topic, int numSlides, String[] content) {
+    public Slides(Instructor author, String topic, int numSlides, String[] content) {
 
         this.date = new Date();
         this.author = author;

@@ -2,10 +2,12 @@
 import classes.Evaluation.Assessment;
 import classes.Evaluation.Assignment;
 import classes.Evaluation.Quiz;
-import classes.Human.Human.*;
-import classes.Lectures.Lecture;
-import classes.Lectures.Lecture.*;
-import classes.Lectures.Slides;
+import classes.Human.Instructor;
+import classes.Human.*;
+//import classes.Human.Person.*;
+import classes.Human.Student;
+import classes.Lectures.*;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class Main {
     public static Scanner sc =  new Scanner(System.in);
     public static Instructor user;
 
-    public static <Lecture> void addLecture()
+    public static void addLecture()
     {
         int choice;
 
@@ -50,7 +52,7 @@ public class Main {
                 content[i] = sc.nextLine();
             }
 
-            Lecture slides = new Slides( user, topic, numSlides, content);
+            Lecture slides = new Slides(user, topic, numSlides, content);
 
 
             lectures.add((classes.Lectures.Lecture) slides);
@@ -73,7 +75,7 @@ public class Main {
                 System.out.println("please upload videos with .mp4 extension");
             }while(!isCorrect);
 
-            Lecture vid = (Lecture) new Video(topic, filename, user);
+            Lecture vid = new Video(topic, filename, user);
 
             System.out.println("file uploaded\n");
             lectures.add((classes.Lectures.Lecture) vid);
