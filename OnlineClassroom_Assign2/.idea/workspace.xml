@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb71135e-e69a-472d-8519-16c275db92c7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Evaluation/Assessment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Evaluation/Assessment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Evaluation/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Evaluation/Assignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Evaluation/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Evaluation/Quiz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Human/Submission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Human/Submission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Comment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

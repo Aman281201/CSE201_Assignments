@@ -9,12 +9,16 @@ public class Comment {
     private String body;
     private Person createdBy;
 
-    Comment(String body, Person person)
+    public Comment(String body, Person person)
     {
         createdAt = new Date();
         this.body = body;
         createdBy = person;
     }
 
+    public void showData()
+    {
+        System.out.println(body + " - " + createdBy.getId() + "\n" + createdAt);
+    }
 
 }

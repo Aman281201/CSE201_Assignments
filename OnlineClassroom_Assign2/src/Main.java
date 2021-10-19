@@ -1,4 +1,5 @@
 
+import classes.Comment;
 import classes.Evaluation.Assessment;
 import classes.Evaluation.Assignment;
 import classes.Evaluation.Quiz;
@@ -18,8 +19,9 @@ public class Main {
     public static ArrayList<Student> students = new ArrayList<>();
     public static ArrayList<Lecture> lectures = new ArrayList<>();
     public static ArrayList<Assessment> assessments = new ArrayList<>();
+    public static ArrayList<Comment> comments = new ArrayList<Comment>();
     public static Scanner sc =  new Scanner(System.in).useDelimiter("\\n");
-    public static Instructor user;
+    public static Person user;
     public static Student submitter;
 
     public static void addLecture()
@@ -53,10 +55,10 @@ public class Main {
                 content[i] = sc.next();
             }
 
-            Lecture slides = new Slides(user, topic, numSlides, content);
+            Lecture slides = new Slides((Instructor) user, topic, numSlides, content);
 
 
-            lectures.add((classes.Lectures.Lecture) slides);
+            lectures.add((Lecture) slides);
 
         }
         else if (choice == 2)
@@ -78,7 +80,7 @@ public class Main {
                 System.out.println("please upload videos with .mp4 extension");
             }while(!isCorrect);
 
-            Lecture vid = new Video(topic, filename, user);
+            Lecture vid = new Video(topic, filename, (Instructor) user);
 
             System.out.println("file uploaded\n");
             lectures.add((Lecture) vid);
@@ -111,7 +113,7 @@ public class Main {
             System.out.println("Enter maxMarks");
             maxMarks = sc.nextInt();
 
-            Assessment assignment = new Assignment(statement, maxMarks, user);
+            Assessment assignment = new Assignment(statement, maxMarks, (Instructor) user);
             assessments.add(assignment);
             System.out.println("added assignment\n");
         }
@@ -123,7 +125,7 @@ public class Main {
             System.out.println("enter quiz question");
             question = sc.next();
 
-            Assessment quiz = new Quiz(question , user);
+            Assessment quiz = new Quiz(question , (Instructor) user);
             assessments.add(quiz);
             System.out.println("added assignment\n");
         }
@@ -214,11 +216,20 @@ public class Main {
 
     public static void viewComments()
     {
+        for(int i =0; i < comments.size(); i++) {
+            comments.get(i).showData();
+            System.out.println("\n\n");
+        }
 
     }
 
     public static void addComments()
     {
+        String comment;
+        System.out.println("Enter comment: ");
+        comment = sc.next();
+        Comment com = new Comment(comment, user);
+        comments.add(com);
 
     }
 
@@ -232,7 +243,7 @@ public class Main {
         System.out.println("choose id\n");
         choice = sc.nextInt();
 
-        user = instructors.get(choice);
+        user = (Instructor) instructors.get(choice);
 
         do{
             System.out.println("Welcome " + user.getId() + "\n");
