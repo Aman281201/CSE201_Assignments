@@ -31,19 +31,37 @@ public class Submission {
         this.type = "Assignment";
         this.isGraded = false;
     }
+
+    public String getFilename()
+    {
+        return this.filename;
+    }
+
+    public float getScoredMarks()
+    {
+        return this.marks;
+    }
+
     public void setMarks(float marks)
     {
         this.marks = marks;
     }
 
-    public  void setCorrect()
+    public void setCorrect()
     {
         isCorrect = true;
     }
+
+    public boolean getCorrect()
+    {
+        return isCorrect;
+    }
+
         public Person getAuthor()
     {
         return this.author;
     }
+
     public String getType()
     {
         return type;
@@ -64,5 +82,16 @@ public class Submission {
     {
         return isGraded;
     }
+
+    public void setGradedBy(Person person)
+    {
+        this.gradedBy = person;
+    }
+
+    public Person getGradedBy()
+    {
+        return this.gradedBy;
+    }
+
 
 }

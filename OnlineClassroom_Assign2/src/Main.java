@@ -200,6 +200,8 @@ public class Main {
             if(quizAns == 1)
                 cur.setCorrect();
         }
+
+        cur.setGraded(true);
     }
 
     public static void closeAssessment()
@@ -288,12 +290,28 @@ public class Main {
     public static void viewGrades()
     {   ArrayList<Submission> sub = ((Student) user).getSubmissions();
 
-        System.out.println("Graded Assesments");
+        System.out.println("Graded Assessments");
         for(int i = 0; i < sub.size(); i++)
         {
             if(sub.get(i).getGraded() == true)
-            {
-                Submission cur =
+            { Submission cur = sub.get(i);
+                if(cur.getType().equals("Assignment")) {
+                    System.out.println("Submission: " + cur.getFilename());
+                    System.out.println("Marks Scored :" + cur.getScoredMarks());
+                    System.out.println("Graded by : " + cur.getGradedBy().getId());
+                }
+                else {
+                    if(cur.getType().equals("Quiz"))
+                    {
+                        System.out.println("Your answer : " + cur.getAnswer()+"\n");
+                        if(cur.getCorrect())
+                            System.out.println("Your answer is Correct");
+
+                        else System.out.println("Your answer is wrong");
+
+                        System.out.println("Graded by : " + cur.getGradedBy().getId());
+                    }
+                }
             }
         }
 
@@ -303,7 +321,18 @@ public class Main {
         {
             if(sub.get(i).getGraded() == false)
             {
+                Submission cur = sub.get(i);
+                if(cur.getType().equals("Assignment")) {
+                    System.out.println("Submission: " + cur.getFilename());
 
+                }
+                else {
+                    if(cur.getType().equals("Quiz"))
+                    {
+                        System.out.println("Your answer : " + cur.getAnswer()+"\n");
+
+                    }
+                }
             }
         }
 

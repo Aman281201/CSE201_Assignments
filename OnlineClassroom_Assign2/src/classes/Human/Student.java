@@ -31,10 +31,13 @@ public class Student implements Person {
 
     public void showPending()
     {
-        for(int i = 0 ; i < pending.size(); i++)
-        {
-            pending.get(i).showData(i);
-            System.out.println("________________\n");
+        if(pending.isEmpty())
+            System.out.println("no pending assessments");
+        else {
+            for (int i = 0; i < pending.size(); i++) {
+                pending.get(i).showData(i);
+                System.out.println("________________\n");
+            }
         }
     }
 
