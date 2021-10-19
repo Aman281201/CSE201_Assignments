@@ -9,7 +9,8 @@ public class Submission {
     private String filename;
     private Person author;
     private float marks;
-    private boolean isOpen;
+    private boolean isCorrect;
+//    private boolean isOpen;
     private Person gradedBy;
 
     Submission(String answer, Assessment assessment, Person author)
@@ -18,6 +19,7 @@ public class Submission {
         this.assessment = assessment;
         this.author = author;
         this.type = "Quiz";
+        this.isCorrect = false;
     }
 
     Submission(Assessment assessment, String filename, Person author)
@@ -31,13 +33,24 @@ public class Submission {
     {
         this.marks = marks;
     }
-    public Person getAuthor()
+
+    public  void setCorrect()
+    {
+        isCorrect = true;
+    }
+        public Person getAuthor()
     {
         return this.author;
     }
     public String getType()
     {
         return type;
+    }
+    public String getAnswer()
+    {
+        if(this.type.equals("Assignment"))
+            return filename;
+        else return answer;
     }
 
 }

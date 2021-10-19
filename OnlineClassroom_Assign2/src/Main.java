@@ -150,7 +150,8 @@ public class Main {
 
     public static void gradeAssessments()
     {
-        int id, studId;
+        int id, studId, quizAns;
+        float score;
 
         System.out.println("List of assessments\n");
         viewAssessments();
@@ -173,11 +174,53 @@ public class Main {
         Submission cur = ass.getSubmissions().get(studId);
         Student stud = (Student) cur.getAuthor();
 
-        System.out.println(cur.getfilename);
+        System.out.println(cur.getAnswer() + "\n_____________________\n");
+        if(ass.getType().equals("Assignment")) {
+            System.out.println("Max Marks : " + ((Assignment) ass).getMaxMarks());
+            System.out.println("Enter marks Scored\n");
+            score = sc.nextFloat();
+            cur.setMarks(score);
+        }
+        else{
+            System.out.println("select among the following\n1) correct answer       2) incorrect answer");
+            quizAns = sc.nextInt();
+            if(quizAns == 1)
+                cur.setCorrect();
+        }
+    }
+
+    public static void closeAssessment()
+    {
+        System.out.println("List of open assessments\n");
+        int a = 0, id,c=0;
+        int[] b= new int[assessments.size()];
+
+        for(int i = 0; i < assessments.size(); i++)
+        {
+            if(assessments.get(i).getIsOpen())
+            {
+            assessments.get(i).showData(a);
+            System.out.println("____________________");
+            a++;
+            }
+            else {c++;
+            b[i] = c;
+            }
+        }
+        System.out.println("enter id of assignment to close: \n");
+        id = sc.nextInt();
+        assessments.get(b[id] + id).close();
+    }
+
+    public static void viewComments()
+    {
 
     }
 
+    public static void addComments()
+    {
 
+    }
 
     public static void instructorLogin() {
 
@@ -207,11 +250,11 @@ public class Main {
                     break;
                 case 5: gradeAssessments();
                     break;
-                case 6:
+                case 6: closeAssessment();
                     break;
-                case 7:
+                case 7: viewComments();
                     break;
-                case 8:
+                case 8: addComments();
                     break;
                 case 9:
                     System.out.println("Logging out");

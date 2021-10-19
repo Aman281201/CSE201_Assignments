@@ -13,6 +13,7 @@ public class Quiz implements Assessment {
     private Instructor author;
     private Date date;
     private ArrayList<Submission> submissions;
+    private boolean isOpen;
 
 
     public Quiz()                                           // function overload
@@ -26,16 +27,37 @@ public class Quiz implements Assessment {
         this.author = author;
         this.date = new Date();
         this.type = "Quiz";
+        this.isOpen = true;
     }
 
+    @Override
     public void addSubmissions(Submission sub)
     {
         this.submissions.add(sub);
     }
 
+    @Override
     public String getType()
     {
         return this.type;
+    }
+
+    @Override
+    public boolean getIsOpen()
+    {
+        return isOpen;
+    }
+
+    @Override
+    public void close()
+    {
+        isOpen = false;
+    }
+
+    @Override
+    public ArrayList<Submission> getSubmissions()
+    {
+        return submissions;
     }
 
     @Override
@@ -43,4 +65,5 @@ public class Quiz implements Assessment {
         System.out.println("ID: " + i + " : Question: " + question + "\n");
 
     }
+
 }

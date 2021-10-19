@@ -15,6 +15,7 @@ public class Assignment implements Assessment {
     private Instructor author;
     private Date date;
     private ArrayList<Submission> submissions;
+    private boolean isOpen;
 
     public Assignment(String statement, int maxMarks, Instructor author) {
         this.statement = statement;
@@ -23,6 +24,7 @@ public class Assignment implements Assessment {
         this.date = new Date();
         this.submissions = new ArrayList<>();
         this.type = "Assignment";
+        this.isOpen = true;
     }
 
     public void addSubmissions(Submission sub)
@@ -39,8 +41,23 @@ public class Assignment implements Assessment {
     {
         return type;
     }
+
+    public int getMaxMarks()
+    {
+        return maxMarks;
+    }
+
     @Override
     public void showData(int i) {
         System.out.println("ID: " + i + " : Assignment: " + statement + "  Max Marks : " + maxMarks + "\n");
+    }
+    public boolean getIsOpen()
+    {
+        return isOpen;
+    }
+
+    public void close()
+    {
+        isOpen = false;
     }
 }

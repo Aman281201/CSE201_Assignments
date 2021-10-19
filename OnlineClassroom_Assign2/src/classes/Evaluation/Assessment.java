@@ -9,4 +9,6 @@ public interface Assessment {
         void addSubmissions(Submission sub);
         String getType();
         ArrayList<Submission> getSubmissions();
+        boolean getIsOpen();
+        void close();
     }
