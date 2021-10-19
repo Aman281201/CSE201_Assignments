@@ -28,6 +28,7 @@ public class Quiz implements Assessment {
         this.date = new Date();
         this.type = "Quiz";
         this.isOpen = true;
+        this.submissions = new ArrayList<>();
     }
 
     @Override

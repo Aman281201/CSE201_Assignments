@@ -10,24 +10,26 @@ public class Submission {
     private Person author;
     private float marks;
     private boolean isCorrect;
-//    private boolean isOpen;
+    private boolean isGraded;
     private Person gradedBy;
 
-    Submission(String answer, Assessment assessment, Person author)
+    public Submission(String answer, Assessment assessment, Person author)
     {
         this.answer = answer;
         this.assessment = assessment;
         this.author = author;
         this.type = "Quiz";
         this.isCorrect = false;
+        this.isGraded = false;
     }
 
-    Submission(Assessment assessment, String filename, Person author)
+    public Submission(Assessment assessment, String filename, Person author)
     {
         this.assessment = assessment;
         this.filename = filename;
         this.author = author;
         this.type = "Assignment";
+        this.isGraded = false;
     }
     public void setMarks(float marks)
     {
@@ -51,6 +53,16 @@ public class Submission {
         if(this.type.equals("Assignment"))
             return filename;
         else return answer;
+    }
+
+    public void setGraded(boolean graded)
+    {
+        this.isGraded = graded;
+    }
+
+    public boolean getGraded()
+    {
+        return isGraded;
     }
 
 }

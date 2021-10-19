@@ -22,7 +22,7 @@ public class Main {
     public static ArrayList<Comment> comments = new ArrayList<Comment>();
     public static Scanner sc =  new Scanner(System.in).useDelimiter("\\n");
     public static Person user;
-    public static Student submitter;
+//    public static Student submitter;
 
     public static void addLecture()
     {
@@ -76,7 +76,8 @@ public class Main {
                 String[] a = filename.split("[.]");
 
                 isCorrect = (a[a.length - 1].equals("mp4"));
-                System.out.println(a[a.length - 1] + " " + isCorrect);
+
+                if(!isCorrect)
                 System.out.println("please upload videos with .mp4 extension");
             }while(!isCorrect);
 
@@ -246,11 +247,66 @@ public class Main {
     public static void submitAssessment()
     {
         int assId;
+        String filename, answer;
 
         System.out.println("Pending assessments\n");
         ((Student)user).showPending();
         System.out.println("Enter the ID of assessment to submit");
         assId = sc.nextInt();
+        Assessment ass = ((Student)user).getPending(assId);
+
+        if(ass.getIsOpen()) {
+            if (ass.getType().equals("Assignment")) {
+                System.out.println("Enter filename of assignment");
+                boolean isCorrect = false;
+                do {
+                    filename = sc.next();
+                    String[] a = filename.split("[.]");
+
+                    isCorrect = (a[a.length - 1].equals("zip"));
+
+                    if (!isCorrect)
+                        System.out.println("please upload videos with .mp4 extension");
+                } while (!isCorrect);
+
+
+                Submission sub = new Submission(ass, filename, user);
+                ((Student) user).removePending(assId);
+                ass.addSubmissions(sub);
+
+            } else {
+                System.out.println("Enter answer to the Question");
+                answer = sc.next();
+                Submission sub = new Submission(answer, ass, user);
+                ((Student) user).removePending(assId);
+                ass.addSubmissions(sub);
+            }
+        }
+        else System.out.println("Deadline for this assignment is already over\n");
+    }
+
+    public static void viewGrades()
+    {   ArrayList<Submission> sub = ((Student) user).getSubmissions();
+
+        System.out.println("Graded Assesments");
+        for(int i = 0; i < sub.size(); i++)
+        {
+            if(sub.get(i).getGraded() == true)
+            {
+                Submission cur =
+            }
+        }
+
+        System.out.println("\n____________________________\n");
+
+        for(int i = 0; i < sub.size(); i++)
+        {
+            if(sub.get(i).getGraded() == false)
+            {
+
+            }
+        }
+
     }
 
     public static void instructorLogin() {
@@ -306,7 +362,7 @@ public class Main {
         System.out.println("choose id\n");
         choice = sc.nextInt();
 
-        user = (Instructor) instructors.get(choice);
+        user = (Student) students.get(choice);
 
         do{
             System.out.println("Welcome " + user.getId() + "\n");
@@ -320,8 +376,8 @@ public class Main {
                     break;
                 case 3: submitAssessment();
                     break;
-//                case 4: viewGrades();
-//                    break;
+                case 4: viewGrades();
+                    break;
                 case 5: viewComments();
                     break;
                 case 6: addComments();
@@ -332,7 +388,7 @@ public class Main {
                 default:
                     System.out.println("please enter the correct choice");
             }
-        }while(res != 9);
+        }while(res != 7);
     }
 
     public static void main(String[] args)

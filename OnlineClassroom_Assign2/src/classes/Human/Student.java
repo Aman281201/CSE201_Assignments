@@ -9,11 +9,14 @@ import java.util.HashMap;
 public class Student implements Person {
 
     private String id;
-    private HashMap<Assessment,Submission> submissions = new HashMap<>();
+//    private HashMap<Assessment,Submission> submissions = new HashMap<>();
+    private ArrayList<Submission> submitted;
     private ArrayList<Assessment> pending = new ArrayList<>();
+
     public Student(String id)
     {
         this.id = id;
+        this.submitted = new ArrayList<>();
     }
 
     public void addPending(Assessment assessment)
@@ -35,15 +38,20 @@ public class Student implements Person {
         }
     }
 
+    public Assessment getPending(int id)
+    {
+        return pending.get(id);
+    }
+
     @Override
     public String getId()
     {
         return id;
     }
 
-    public HashMap<Assessment, Submission> getSubmissions()
+    public ArrayList<Submission> getSubmissions()
     {
-        return submissions;
+        return submitted;
     }
 
     @Override
