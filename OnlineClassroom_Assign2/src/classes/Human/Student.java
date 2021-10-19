@@ -3,16 +3,36 @@ package classes.Human;
 import classes.Evaluation.Assessment;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Student implements Person {
 
     private String id;
     private HashMap<Assessment,Submission> submissions = new HashMap<>();
-
+    private ArrayList<Assessment> pending = new ArrayList<>();
     public Student(String id)
     {
         this.id = id;
+    }
+
+    public void addPending(Assessment assessment)
+    {
+        pending.add(assessment);
+    }
+
+    public void removePending(int id)
+    {
+        pending.remove(id);
+    }
+
+    public void showPending()
+    {
+        for(int i = 0 ; i < pending.size(); i++)
+        {
+            pending.get(i).showData(i);
+            System.out.println("________________\n");
+        }
     }
 
     @Override
@@ -26,7 +46,7 @@ public class Student implements Person {
         return submissions;
     }
 
-
+    @Override
     public void showMenu() {
         System.out.println("""
                                     

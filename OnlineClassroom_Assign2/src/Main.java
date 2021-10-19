@@ -115,6 +115,10 @@ public class Main {
 
             Assessment assignment = new Assignment(statement, maxMarks, (Instructor) user);
             assessments.add(assignment);
+            for(int i =0; i < students.size(); i++)
+            {
+                students.get(i).addPending(assignment);
+            }
             System.out.println("added assignment\n");
         }
 
@@ -127,7 +131,13 @@ public class Main {
 
             Assessment quiz = new Quiz(question , (Instructor) user);
             assessments.add(quiz);
-            System.out.println("added assignment\n");
+
+            for(int i =0; i < students.size(); i++)
+            {
+                students.get(i).addPending(quiz);
+            }
+
+            System.out.println("added quiz\n");
         }
     }
 
@@ -233,6 +243,16 @@ public class Main {
 
     }
 
+    public static void submitAssessment()
+    {
+        int assId;
+
+        System.out.println("Pending assessments\n");
+        ((Student)user).showPending();
+        System.out.println("Enter the ID of assessment to submit");
+        assId = sc.nextInt();
+    }
+
     public static void instructorLogin() {
 
         int choice, res;
@@ -279,8 +299,40 @@ public class Main {
 
     public static void studentLogin()
     {
+        int res, choice;
         for(int i =0; i < students.size(); i++)
             System.out.println(i + " -> " + students.get(i).getId());
+
+        System.out.println("choose id\n");
+        choice = sc.nextInt();
+
+        user = (Instructor) instructors.get(choice);
+
+        do{
+            System.out.println("Welcome " + user.getId() + "\n");
+            user.showMenu();
+            res = sc.nextInt();
+
+            switch(res){
+                case 1: showLectures();
+                    break;
+                case 2: viewAssessments();
+                    break;
+                case 3: submitAssessment();
+                    break;
+//                case 4: viewGrades();
+//                    break;
+                case 5: viewComments();
+                    break;
+                case 6: addComments();
+                    break;
+                case 7:
+                    System.out.println("Logging out");
+                    break;
+                default:
+                    System.out.println("please enter the correct choice");
+            }
+        }while(res != 9);
     }
 
     public static void main(String[] args)
