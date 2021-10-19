@@ -29,16 +29,20 @@ public class Student implements Person {
         pending.remove(id);
     }
 
-    public void showPending()
+    public int showPending()
     {
-        if(pending.isEmpty())
+        if(pending.isEmpty()) {
             System.out.println("no pending assessments");
+            return -1;
+        }
         else {
             for (int i = 0; i < pending.size(); i++) {
                 pending.get(i).showData(i);
                 System.out.println("________________\n");
             }
+            return 0;
         }
+
     }
 
     public Assessment getPending(int id)
@@ -50,6 +54,11 @@ public class Student implements Person {
     public String getId()
     {
         return id;
+    }
+
+    public void addSubmitted(Submission submitted)
+    {
+        this.submitted.add(submitted);
     }
 
     public ArrayList<Submission> getSubmissions()

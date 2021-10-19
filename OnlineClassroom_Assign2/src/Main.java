@@ -178,7 +178,8 @@ public class Main {
 
         for(int i = 0; i < ass.getSubmissions().size(); i++)
         {
-            System.out.println(i + " - " + ass.getSubmissions().get(i).getAuthor().getId() + "\n");
+            if(!ass.getSubmissions().get(i).getGraded())
+                System.out.println(i + " - " + ass.getSubmissions().get(i).getAuthor().getId() + "\n");
         }
         System.out.println("Enter the id :");
         studId = sc.nextInt();
@@ -202,6 +203,7 @@ public class Main {
         }
 
         cur.setGraded(true);
+        cur.setGradedBy(user);
     }
 
     public static void closeAssessment()
@@ -248,11 +250,14 @@ public class Main {
 
     public static void submitAssessment()
     {
-        int assId;
+        int assId, x;
         String filename, answer;
 
         System.out.println("Pending assessments\n");
-        ((Student)user).showPending();
+        x = ((Student)user).showPending();
+        if(x == -1)
+            return;
+
         System.out.println("Enter the ID of assessment to submit");
         assId = sc.nextInt();
         Assessment ass = ((Student)user).getPending(assId);
@@ -275,6 +280,7 @@ public class Main {
                 Submission sub = new Submission(ass, filename, user);
                 ((Student) user).removePending(assId);
                 ass.addSubmissions(sub);
+                ((Student) user).addSubmitted(sub);
 
             } else {
                 System.out.println("Enter answer to the Question");
@@ -282,6 +288,7 @@ public class Main {
                 Submission sub = new Submission(answer, ass, user);
                 ((Student) user).removePending(assId);
                 ass.addSubmissions(sub);
+                ((Student) user).addSubmitted(sub);
             }
         }
         else System.out.println("Deadline for this assignment is already over\n");
@@ -293,7 +300,7 @@ public class Main {
         System.out.println("Graded Assessments");
         for(int i = 0; i < sub.size(); i++)
         {
-            if(sub.get(i).getGraded() == true)
+            if(sub.get(i).getGraded())
             { Submission cur = sub.get(i);
                 if(cur.getType().equals("Assignment")) {
                     System.out.println("Submission: " + cur.getFilename());
@@ -317,9 +324,11 @@ public class Main {
 
         System.out.println("\n____________________________\n");
 
+        System.out.println("Un Graded Assessments");
+
         for(int i = 0; i < sub.size(); i++)
         {
-            if(sub.get(i).getGraded() == false)
+            if(!sub.get(i).getGraded())
             {
                 Submission cur = sub.get(i);
                 if(cur.getType().equals("Assignment")) {
@@ -329,7 +338,7 @@ public class Main {
                 else {
                     if(cur.getType().equals("Quiz"))
                     {
-                        System.out.println("Your answer : " + cur.getAnswer()+"\n");
+                        System.out.println("Your answer : " + cur.getAnswer());
 
                     }
                 }
