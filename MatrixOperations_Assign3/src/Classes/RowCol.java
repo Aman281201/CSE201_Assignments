@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class RowCol extends Matrix{
 
-    private ArrayList<Integer> mat = new ArrayList<>();
+    private ArrayList<Integer> mat;
 
 
-    RowCol(int r, int c, ArrayList<Integer> mat, boolean isRow){
+    public RowCol(int r, int c, ArrayList<Integer> mat, boolean isRow){
 
         this.mat = mat;
         this.rows = r;

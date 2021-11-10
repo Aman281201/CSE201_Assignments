@@ -3,7 +3,7 @@ package Classes;
 public class Singleton extends Matrix{
     private int mat;
 
-    Singleton(int mat){
+    public Singleton(int mat){
 
         this.mat = mat;
         this.rows = 1;

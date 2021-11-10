@@ -2,7 +2,7 @@ package Classes;
 
 public class Identity extends Matrix{
 
-    Identity(int r, int c){
+    public Identity(int r, int c){
         this.rows = r;
         this.column = c;
         this.isNull = false;

@@ -2,11 +2,11 @@ package Classes;
 
 import java.util.ArrayList;
 
-public class Diagonal extends Matrix{
-    private ArrayList<Integer> mat = new ArrayList<Integer>();
+public class DiagonalScalar extends Matrix{
+    private ArrayList<Integer> mat ;
     private int scalarFactor;
 
-    Diagonal(int r, int c, ArrayList<Integer> mat, boolean scalar){
+    public DiagonalScalar(int r, int c, ArrayList<Integer> mat, boolean scalar){
 
         this.mat = mat;
         this.rows = r;

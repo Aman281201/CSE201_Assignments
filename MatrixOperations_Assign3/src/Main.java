@@ -1,5 +1,6 @@
-import Classes.Diagonal;
+import Classes.DiagonalScalar;
 import Classes.Matrix;
+import Classes.NullOnes;
 import Classes.Singleton;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class Main {
          }
          if(matrix.getDiag())
          {
-             ArrayList<Integer> d = ((Diagonal)matrix).getDiagonal();
+             ArrayList<Integer> d = ((DiagonalScalar)matrix).getDiagonal();
              for(int i = 0; i < matrix.getRow(); i++)
              {
                  for(int j = 0; j < matrix.getCollumn(); j++)
@@ -131,10 +132,62 @@ public class Main {
         }
 
         // assigning labels to objects
-        //if()
+        if(count0 == r*c)
+        {
+            NullOnes m = new NullOnes(r,c,false);
+        }
 
     }
 
+    public static void makeMatrix()
+    {
+
+    }
+
+    public static void updateElement()
+    {
+
+    }
+
+    public static void dispLabels()
+    {
+
+    }
+
+    public static void addSubMul()
+    {
+
+    }
+
+    public static void elementWiseOp()
+    {
+
+    }
+
+    public static void getTranspose()
+    {
+
+    }
+
+    public static void getInvert()
+    {
+
+    }
+
+    public static void findMean()
+    {
+
+    }
+
+    public static void singltonAsScalar()
+    {
+
+    }
+
+    public static void findDet()
+    {
+
+    }
 
     public static void getTransSum()
     {
@@ -154,10 +207,22 @@ public class Main {
             return;
         }
 
+    }
 
-
+    public static void findEigen()
+    {
 
     }
+
+    public static void SolveLinEq()
+    {
+
+    }
+    public static void getMatFromLabel()
+    {
+
+    }
+
     public static void main(String[] args)
     {
         System.out.println("Welcome to matrix hub\n");
@@ -171,35 +236,36 @@ public class Main {
             {
                 case 1: getInput();
                     break;
-                case 2:
+                case 2: makeMatrix();
                     break;
-                case 3:
+                case 3: updateElement();
                     break;
-                case 4:
+                case 4: dispLabels();
                     break;
-                case 5:
+                case 5: addSubMul();
                     break;
-                case 6:
+                case 6: elementWiseOp();
                     break;
-                case 7:
+                case 7: getTranspose();
                     break;
-                case 8:
+                case 8: getInvert();
                     break;
-                case 9:
+                case 9: findMean();
                     break;
-                case 10:
+                case 10: findDet();
                     break;
-                case 11:
+                case 11: singltonAsScalar();
                     break;
                 case 12: getTransSum();
                     break;
-                case 13:
+                case 13: findEigen();
                     break;
-                case 14:
+                case 14: SolveLinEq();
                     break;
-                case 15:
+                case 15: getMatFromLabel();
                     break;
                 case 16:
+                    System.out.println("exiting matrix hub");
                     break;
                 default:
                     System.out.println("please enter the correct choice");
