@@ -1,5 +1,6 @@
 import Classes.*;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,10 +8,46 @@ public class Main {
 
     public static Scanner sc = new Scanner(System.in);
     public static ArrayList<Matrix> matrices = new ArrayList<>();
-    public static ArrayList<Matrix> SqMat = new ArrayList<>();
-    public static ArrayList<Matrix> RectMat = new ArrayList<>();
-    public static ArrayList<Matrix> SymMat = new ArrayList<>();
-    public static ArrayList<Matrix> SkewMat = new ArrayList<>();
+
+//    public static ArrayList<Matrix> SqMat = new ArrayList<>();
+//    public static ArrayList<Matrix> RectMat = new ArrayList<>();
+//    public static ArrayList<Matrix> SymMat = new ArrayList<>();
+//    public static ArrayList<Matrix> SkewMat = new ArrayList<>();
+
+    public static ArrayList<ArrayList<Integer>> retTranspose(ArrayList<ArrayList<Integer>> m)
+    {
+        ArrayList<ArrayList<Integer>> trans = new ArrayList<>();
+
+        for(int i  = 0; i < m.size(); i++) {
+            trans.add(new ArrayList<>());
+            for (int j = 0; j < m.get(0).size(); j++) {
+                trans.get(i).add(m.get(j).get(i));
+            }
+        }
+        return trans;
+    }
+
+    public static int IsSymSkewSym(ArrayList<ArrayList<Integer>> m )
+    {
+        int count=0, count0 = 0;
+        ArrayList<ArrayList<Integer>> t = retTranspose(m);
+        for(int i = 0 ; i < m.size(); i++)
+         for (int j = 0 ; j < m.get(0).size(); j++) {
+             if (t.get(i).get(j).equals(m.get(i).get(j)))
+                 count++;
+
+             if((t.get(i).get(j) + m.get(i).get(j)) == 0)
+                 count0++;
+         }
+
+         if(count == m.size()*m.get(0).size())
+             return 0;
+
+         if(count0 == m.size()*m.get(0).size())
+             return 1;
+
+         return -1;
+    }
 
     public static void printMatrix(Matrix matrix)
     {
@@ -19,11 +56,11 @@ public class Main {
             for(int i = 0; i < matrix.getRow(); i++)
                 {
                     for(int j = 0; j < matrix.getCollumn(); j++)
-                        System.out.println(0 + "\t");
+                        System.out.printf(0 + "\t");
 
                     System.out.println("\n");
                 }
-            System.out.println("\n");
+//            System.out.println("\n");
             return;
         }
          if(matrix.getOnes())
@@ -214,7 +251,7 @@ public class Main {
 
     public static void getInput()
     {
-        int r, c, x, count0 = 0, count1 = 0, countId = 0, countScalar = 0, temp = 0;
+        int r, c, x, count0 = 0, count1 = 0, countId = 0, countScalar = 0, temp = 0, countUp =0, countLow=0;
         ArrayList<ArrayList<Integer>> mat = new ArrayList<>();
         System.out.println("enter the total number of rows in the matrix");
         r = sc.nextInt();
@@ -246,6 +283,11 @@ public class Main {
                         else if (x == temp)
                             countScalar++;
                     }
+
+                    if(i>j && x=0)
+                        countUp++;
+                    if(i<j && x ==0)
+                        countLow++;
                 }
 
             }
@@ -255,21 +297,21 @@ public class Main {
         if(count0 == r*c)
         {
             NullOnes m = new NullOnes(r,c,false);
-            matrices.add((Matrix) m);
+            matrices.add(m);
         }
         else if(count1 == r*c)
         {
             NullOnes m = new NullOnes(r,c,true);
-            matrices.add((Matrix) m);
+            matrices.add( m);
         }
         else if(r == c) {
             if (countId == 0 && count1 == 3) {
                 Identity m = new Identity(r, c);
-                matrices.add((Matrix) m);
+                matrices.add(m);
             }
             else if (r == 1) {
                 Singleton m = new Singleton(mat.get(0).get(0));
-                matrices.add((Matrix) m);
+                matrices.add(m);
             }
             else if (countId == r * c - r) {
 
@@ -279,25 +321,48 @@ public class Main {
 
                 if (countScalar == r) {
                     DiagonalScalar m = new DiagonalScalar(r, c,d , true);
-                    matrices.add((Matrix) m);
+                    matrices.add(m);
                 }
                 else {
                     DiagonalScalar m = new DiagonalScalar(r,c,d,false);
-                    matrices.add((Matrix) m);
+                    matrices.add(m);
                 }
             }
             else {
-                int det = 0;
+                int det ;
                 det = getDet(mat,r);
-                SquareSymSkewSingTri m = new SquareSymSkewSingTri(r,c,mat,false,false,false,false,det);
-                matrices.add((Matrix) m);
+                if(IsSymSkewSym(mat) == 0)
+                {SquareSymSkewSingTri m = new SquareSymSkewSingTri(r,c,mat,false,false,true,false,det);
+                    matrices.add(m);
+                }
+                else if(IsSymSkewSym(mat) == 1)
+                {
+                    SquareSymSkewSingTri m = new SquareSymSkewSingTri(r,c,mat,false,false,false,true,det);
+                    matrices.add(m);
+                }
+                else if(countUp == (r*r - r)/2)
+                {
+                    SquareSymSkewSingTri m = new SquareSymSkewSingTri(r,c,mat,true,true,false,false,det);
+                    matrices.add(m);
+                }
+                else if(countLow == (r*r - r)/2)
+                {
+                    SquareSymSkewSingTri m = new SquareSymSkewSingTri(r,c,mat,true,false,false,false,det);
+                    matrices.add(m);
+                }
+                else
+                {SquareSymSkewSingTri m = new SquareSymSkewSingTri(r,c,mat,false,false,false,false,det);
+                    matrices.add(m);
+                }
+
+
             }
         }
         else{
             if(r == 1)
             {
                 RowCol m = new RowCol(r,c,mat.get(0),true);
-                matrices.add((Matrix) m);
+                matrices.add( m);
             }
             else if (c == 1)
             {
@@ -305,14 +370,13 @@ public class Main {
                 for(int k = 0; k < c; k++)
                     col.add(mat.get(0).get(k));
                 RowCol m = new RowCol(r,c,col,false);
-                matrices.add((Matrix) m);
+                matrices.add( m);
             }
             else{
                 Rectangle m = new Rectangle(r,c,mat);
-                matrices.add((Matrix) m);
+                matrices.add(m);
             }
         }
-
     }
 
     public static void makeMatrix()
@@ -322,12 +386,107 @@ public class Main {
 
     public static void updateElement()
     {
+        System.out.println("choose the matrix\n");
 
+        for(int i = 0 ; i < matrices.size(); i++)
+        {   System.out.println(i + ")   ");
+            printMatrix(matrices.get(i));
+        }
+
+        int choice = sc.nextInt();
+
+        Matrix ch = matrices.get(choice);
+
+        if(ch.getNull() == true) {
+            System.out.println("element of null matrix can't be updated");
+            return;
+        }
+        if(ch.getOnes() == true) {
+            System.out.println("element of ones matrix can't be updated");
+            return;
+        }
+        if(ch.getSingleton() == true) {
+
+            System.out.println("Enter the new element");
+            int input = sc.nextInt();
+            ((Singleton)ch).setMat(input);
+            System.out.println("element updated");
+            return;
+        }
+
+        if(ch.getId() == true) {
+            System.out.println("element of Identity Matrix cant be updated");
+            return;
+        }
+
+        if(ch.getScalar() == true) {
+            System.out.println("single element of scalar matrix can't be updated");
+            return;
+        }
+
+        if(ch.getDiag() == true)
+            System.out.println("only Diagonal elements can be updated");
+            System.out.println();
+
+        if(ch.getDownTri() == true)
+            System.out.println("Lower Triangular Matrix");
+        if(ch.getUpTri() == true)
+            System.out.println("Upper Triangular");
+        if(ch.getSquare() == true)
+            System.out.println("Square Matrix");
+        if(ch.getSkew() == true)
+            System.out.println("Skew-Symmetric Matrix");
+        if(ch.getSys() == true)
+            System.out.println("Symmetric Matrix");
+        if(ch.getIsRow() == true)
+            System.out.println("Row Matrix");
+        if(ch.getIsCol() == true)
+            System.out.println("Column Matrix");
+        System.out.println("\n\n");
     }
 
     public static void dispLabels()
     {
+        System.out.println("choose the matrix\n");
 
+        for(int i = 0 ; i < matrices.size(); i++)
+        {   System.out.println(i + ")   ");
+            printMatrix(matrices.get(i));
+        }
+
+        int choice = sc.nextInt();
+
+        Matrix ch = matrices.get(choice);
+
+        System.out.println("Selected matrix has following properties");
+
+        if(ch.getNull() == true)
+            System.out.println("Null Matrix");
+        if(ch.getOnes() == true)
+            System.out.println("Ones Matrix");
+        if(ch.getSingleton() == true)
+            System.out.println("Singleton Matrix");
+        if(ch.getId() == true)
+            System.out.println("Identity Matrix");
+        if(ch.getDiag() == true)
+            System.out.println("Diagonal Matrix");
+        if(ch.getScalar() == true)
+            System.out.println("Scalar Matrix");
+        if(ch.getDownTri() == true)
+            System.out.println("Lower Triangular Matrix");
+        if(ch.getUpTri() == true)
+            System.out.println("Upper Triangular");
+        if(ch.getSquare() == true)
+            System.out.println("Square Matrix");
+        if(ch.getSkew() == true)
+            System.out.println("Skew-Symmetric Matrix");
+        if(ch.getSys() == true)
+            System.out.println("Symmetric Matrix");
+        if(ch.getIsRow() == true)
+            System.out.println("Row Matrix");
+        if(ch.getIsCol() == true)
+            System.out.println("Column Matrix");
+        System.out.println("\n\n");
     }
 
     public static void addSubMul()
@@ -344,7 +503,7 @@ public class Main {
     {
         System.out.println("choose the matrix\n");
         for(int i = 0 ; i < matrices.size(); i++)
-        {   System.out.printf(i + ")   ");
+        {   System.out.println(i + ")   ");
             printMatrix(matrices.get(i));
         }
 
@@ -381,7 +540,7 @@ public class Main {
     {
         System.out.println("choose the matrix\n");
         for(int i = 0 ; i < matrices.size(); i++)
-        {   System.out.printf(i + ")   ");
+        {   System.out.println(i + ")   ");
             printMatrix(matrices.get(i));
         }
 
@@ -420,43 +579,24 @@ public class Main {
             printMenu();
             res = sc.nextInt();
 
-            switch(res)
-            {
-                case 1: getInput();
-                    break;
-                case 2: makeMatrix();
-                    break;
-                case 3: updateElement();
-                    break;
-                case 4: dispLabels();
-                    break;
-                case 5: addSubMul();
-                    break;
-                case 6: elementWiseOp();
-                    break;
-                case 7: getTranspose();
-                    break;
-                case 8: getInvert();
-                    break;
-                case 9: findMean();
-                    break;
-                case 10: findDet();
-                    break;
-                case 11: singltonAsScalar();
-                    break;
-                case 12: getTransSum();
-                    break;
-                case 13: findEigen();
-                    break;
-                case 14: SolveLinEq();
-                    break;
-                case 15: getMatFromLabel();
-                    break;
-                case 16:
-                    System.out.println("exiting matrix hub");
-                    break;
-                default:
-                    System.out.println("please enter the correct choice");
+            switch (res) {
+                case 1 -> getInput();
+                case 2 -> makeMatrix();
+                case 3 -> updateElement();
+                case 4 -> dispLabels();
+                case 5 -> addSubMul();
+                case 6 -> elementWiseOp();
+                case 7 -> getTranspose();
+                case 8 -> getInvert();
+                case 9 -> findMean();
+                case 10 -> findDet();
+                case 11 -> singltonAsScalar();
+                case 12 -> getTransSum();
+                case 13 -> findEigen();
+                case 14 -> SolveLinEq();
+                case 15 -> getMatFromLabel();
+                case 16 -> System.out.println("exiting matrix hub");
+                default -> System.out.println("please enter the correct choice");
             }
 
         }while(res != 16);
