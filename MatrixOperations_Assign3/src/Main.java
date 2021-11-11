@@ -284,7 +284,7 @@ public class Main {
                             countScalar++;
                     }
 
-                    if(i>j && x=0)
+                    if(i>j && x==0)
                         countUp++;
                     if(i<j && x ==0)
                         countLow++;
@@ -424,26 +424,109 @@ public class Main {
             return;
         }
 
-        if(ch.getDiag() == true)
-            System.out.println("only Diagonal elements can be updated");
-            System.out.println();
+        if(ch.getSingular() == true)
+        {
+            System.out.println("Singular Matrix can't be updated");
+        }
 
-        if(ch.getDownTri() == true)
-            System.out.println("Lower Triangular Matrix");
-        if(ch.getUpTri() == true)
-            System.out.println("Upper Triangular");
-        if(ch.getSquare() == true)
-            System.out.println("Square Matrix");
-        if(ch.getSkew() == true)
-            System.out.println("Skew-Symmetric Matrix");
-        if(ch.getSys() == true)
-            System.out.println("Symmetric Matrix");
-        if(ch.getIsRow() == true)
-            System.out.println("Row Matrix");
-        if(ch.getIsCol() == true)
-            System.out.println("Column Matrix");
-        System.out.println("\n\n");
+        if(ch.getDiag() == true) {
+            System.out.println("only Diagonal elements can be updated");
+            System.out.println("enter the position of diagonal element (should be in range 0 to " + ch.getRow() + " )");
+            int ind = sc.nextInt();
+            System.out.println("enter the new element");
+            int input = sc.nextInt();
+            ArrayList<Integer> q =((DiagonalScalar)ch).getDiagonal();
+            q.set(ind,input);
+            ((DiagonalScalar)ch).setDiagonal(q);
+            return;
+        }
+
+        if(ch.getDownTri() == true) {
+            System.out.println("co-ordinated must be in the range 0 to " + ch.getRow());
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            if (x < y) {
+                System.out.println("element to be updated has to be in upper half\n");
+                return;
+            }
+            System.out.println("Enter the new element");
+            int n = sc.nextInt();
+            ((SquareSymSkewSingTri) ch).update(x, y, n);
+            ((SquareSymSkewSingTri) ch).setDet(getDet(((SquareSymSkewSingTri) ch).getMat(), ch.getRow()));
+        }
+
+        if(ch.getUpTri() == true) {
+            System.out.println("co-ordinated must be in the range 0 to " + ch.getRow());
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            if (x > y) {
+                System.out.println("element to be updated has to be in upper half\n");
+                return;
+            }
+            System.out.println("Enter the new element");
+            int n = sc.nextInt();
+            ((SquareSymSkewSingTri)ch).update(x,y,n);
+            ((SquareSymSkewSingTri) ch).setDet(getDet(((SquareSymSkewSingTri) ch).getMat(),ch.getRow()));
+        }
+
+        if(ch.getSquare() == true) {
+            System.out.println("Enter the x co-ordinate and y co-ordinate of element to update");
+            System.out.println("co-ordinated must be in the range 0 to " + ch.getRow());
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            System.out.println("Enter the new element");
+            int n = sc.nextInt();
+            ((SquareSymSkewSingTri)ch).update(x,y,n);
+            ((SquareSymSkewSingTri) ch).setDet(getDet(((SquareSymSkewSingTri) ch).getMat(),ch.getRow()));
+        }
+        if(ch.getSkew() == true) {
+            System.out.println("single element can't be updated");
+            return;
+        }
+        if(ch.getSys() == true) {
+            System.out.println("only diagonal elements can be updated for Symmetric Matrix");
+
+            return;
+        }
+        if(ch.getIsRow() == true) {
+            {
+                System.out.println("enter the position of element (should be in range 0 to " + ch.getRow() + " )");
+                int ind = sc.nextInt();
+                System.out.println("enter the new element");
+                int input = sc.nextInt();
+                ArrayList<Integer> q =((RowCol)ch).getMat();
+                q.set(ind,input);
+                ((RowCol)ch).setMat(q);
+                return;
+            }
+
+        }
+        if(ch.getIsCol() == true) {
+            System.out.println("enter the position of element (should be in range 0 to " + ch.getCollumn() + " )");
+            int ind = sc.nextInt();
+            System.out.println("enter the new element");
+            int input = sc.nextInt();
+            ArrayList<Integer> q = ((RowCol) ch).getMat();
+            q.set(ind, input);
+            ((RowCol) ch).setMat(q);
+            return;
+        }
+        if(ch.getRect() == true){
+            System.out.println("Enter the x co-ordinate and y co-ordinate of element to update");
+            System.out.println("x co-ordinated must be in the range 0 to " + ch.getRow());
+            System.out.println("y co-ordinate must be in range 0 to " + ch.getCollumn());
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            System.out.println("Enter the new element");
+            int n = sc.nextInt();
+            ((Rectangle)ch).update(x,y,n);
+        }
     }
+
+
+
+
+
 
     public static void dispLabels()
     {
@@ -486,6 +569,10 @@ public class Main {
             System.out.println("Row Matrix");
         if(ch.getIsCol() == true)
             System.out.println("Column Matrix");
+        if(ch.getRect() == true)
+            System.out.println("Rectangular Matrix");
+        if(ch.getSingular() == true)
+            System.out.println("Singular Matrix");
         System.out.println("\n\n");
     }
 

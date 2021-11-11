@@ -44,7 +44,7 @@ public class RowCol extends Matrix{
     {
         return this.mat;
     }
-    public void set(ArrayList<Integer> m)
+    public void setMat(ArrayList<Integer> m)
     {
         this.mat = m;
     }
