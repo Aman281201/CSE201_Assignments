@@ -114,6 +114,9 @@ public class Main {
 
     }
 
+
+
+
     public static void printTranspose(Matrix matrix)
     {
         if(matrix.getNull())
@@ -227,6 +230,8 @@ public class Main {
             return (det / total);
     }
 
+
+
     public static void printMenu()
     {
         System.out.println("""
@@ -248,6 +253,8 @@ public class Main {
                 16. Exit
                 """);
     }
+
+
 
     public static void getInput()
     {
@@ -379,10 +386,182 @@ public class Main {
         }
     }
 
+
+
+
+
     public static void makeMatrix()
     {
+        System.out.println("choose which of the following matrix you want to make\n");
+        System.out.println("""
+                1. Null
+                2. Ones
+                3. Identity
+                4. Singular
+                5. Singleton
+                6. Scalar
+                7. Diagonal
+                8. Lower Triangular
+                9. Upper Triangular
+                10. Symmetric
+                11. Skew-Symmetric
+                12. Square
+                13. Row
+                14. Column
+                15. Rectangular
+                """);
+        int choice = sc.nextInt();
+        switch (choice)
+        {
+            case 1 : NullOnes n = new NullOnes(2,2,false);
+                        matrices.add(n);
+                        break;
+
+            case 2 : NullOnes o = new NullOnes(2,2,true);
+                        matrices.add(o);
+                        break;
+            case 3 : Identity i = new Identity(3,3);
+                matrices.add(i);
+                break;
+
+            case 4 :
+                ArrayList<ArrayList<Integer>> s1 = new ArrayList<>();
+                s1.add(new ArrayList<Integer>());
+                s1.get(0).add(3);
+                s1.get(0).add(2);
+                s1.add(new ArrayList<Integer>());
+                s1.get(1).add(6);
+                s1.get(0).add(4);
+
+                SquareSymSkewSingTri sg = new SquareSymSkewSingTri(2,2,s1,false,false,false,false,0);
+                matrices.add(sg);
+                break;
+
+            case 5 : Singleton st = new Singleton(4);
+                     matrices.add(st);
+                        break;
+            case 6 : ArrayList<Integer> s2 = new ArrayList<>();
+                    s2.add(5);
+                    s2.add(5);
+                    s2.add(5);
+                    DiagonalScalar sc = new DiagonalScalar(3,3,s2,true);
+                    matrices.add(sc);
+                    break;
+
+            case 7 : ArrayList<Integer> s3 = new ArrayList<>();
+                s3.add(4);
+                s3.add(5);
+                s3.add(6);
+                DiagonalScalar d = new DiagonalScalar(3,3,s3,true);
+                matrices.add(d);
+                break;
+
+            case 8 :
+                ArrayList<ArrayList<Integer>> s4 = new ArrayList<>();
+                s4.add(new ArrayList<Integer>());
+                s4.get(0).add(1);
+                s4.get(0).add(2);
+                s4.add(new ArrayList<Integer>());
+                s4.get(1).add(0);
+                s4.get(0).add(3);
+
+                SquareSymSkewSingTri lm = new SquareSymSkewSingTri(2,2,s4,true,false,false,false,getDet(s4,2));
+                matrices.add(lm);
+                break;
+
+            case 9 :
+                ArrayList<ArrayList<Integer>> s5 = new ArrayList<>();
+                s5.add(new ArrayList<Integer>());
+                s5.get(0).add(1);
+                s5.get(0).add(0);
+                s5.add(new ArrayList<Integer>());
+                s5.get(1).add(2);
+                s5.get(0).add(3);
+
+                SquareSymSkewSingTri um = new SquareSymSkewSingTri(2,2,s5,true,true,false,false,getDet(s5,2));
+                matrices.add(um);
+                break;
+
+            case 10 :
+                ArrayList<ArrayList<Integer>> s6 = new ArrayList<>();
+                s6.add(new ArrayList<Integer>());
+                s6.get(0).add(1);
+                s6.get(0).add(3);
+                s6.add(new ArrayList<Integer>());
+                s6.get(1).add(3);
+                s6.get(0).add(1);
+
+                SquareSymSkewSingTri sym = new SquareSymSkewSingTri(2,2,s6,false,false,true,false,getDet(s6,2));
+                matrices.add(sym);
+                break;
+
+            case 11 :
+                ArrayList<ArrayList<Integer>> s7 = new ArrayList<>();
+                s7.add(new ArrayList<Integer>());
+                s7.get(0).add(0);
+                s7.get(0).add(3);
+                s7.add(new ArrayList<Integer>());
+                s7.get(1).add(-3);
+                s7.get(0).add(0);
+
+                SquareSymSkewSingTri skm = new SquareSymSkewSingTri(2,2,s7,false,false,false,true,getDet(s7,2));
+                matrices.add(skm);
+                break;
+
+            case 12 :
+                ArrayList<ArrayList<Integer>> s8 = new ArrayList<>();
+                s8.add(new ArrayList<Integer>());
+                s8.get(0).add(1);
+                s8.get(0).add(2);
+                s8.add(new ArrayList<Integer>());
+                s8.get(1).add(3);
+                s8.get(0).add(4);
+
+                SquareSymSkewSingTri sqm = new SquareSymSkewSingTri(2,2,s8,false,false,false,true,getDet(s8,2));
+                matrices.add(sqm);
+                break;
+
+            case 13 :
+                ArrayList<Integer> s9 = new ArrayList<>();
+                s9.add(1);
+                s9.add(2);
+                s9.add(3);
+                s9.add(4);
+                RowCol rm = new RowCol(1,4,s9,true);
+                matrices.add(rm);
+                break;
+
+            case 14 :
+                ArrayList<Integer> s10 = new ArrayList<>();
+                s10.add(1);
+                s10.add(2);
+                s10.add(3);
+                s10.add(4);
+                RowCol cm = new RowCol(4,1,s10,false);
+                matrices.add(cm);
+                break;
+
+            case 15 :
+                ArrayList<ArrayList<Integer>> s11 = new ArrayList<>();
+                s11.add(new ArrayList<Integer>());
+                s11.get(0).add(1);
+                s11.get(0).add(2);
+                s11.get(0).add(5);
+                s11.add(new ArrayList<Integer>());
+                s11.get(1).add(3);
+                s11.get(0).add(4);
+                s11.get(0).add(6);
+
+                Rectangle rcm = new Rectangle(2,3,s11);
+                matrices.add(rcm);
+                break;
+
+        }
 
     }
+
+
+
 
     public static void updateElement()
     {
@@ -576,15 +755,21 @@ public class Main {
         System.out.println("\n\n");
     }
 
+
+
     public static void addSubMul()
     {
 
     }
 
+
+
     public static void elementWiseOp()
     {
 
     }
+
+
 
     public static void getTranspose()
     {
