@@ -785,7 +785,6 @@ public class Main {
 
         printTranspose(ch);
 
-
     }
 
     public static void getInvert()
@@ -805,7 +804,51 @@ public class Main {
 
     public static void findDet()
     {
+        System.out.println("choose the matrix\n");
 
+        for(int i = 0 ; i < matrices.size(); i++)
+        {   System.out.println(i + ")   ");
+            printMatrix(matrices.get(i));
+        }
+
+        int choice = sc.nextInt();
+
+        Matrix ch = matrices.get(choice);
+
+        System.out.println("Determinant of the matrix is");
+        if(ch.getSquare() == true) {
+            if (ch.getNull() == true) {
+                System.out.println("0");
+            }
+
+            if (ch.getSingleton() == true) {
+                System.out.println(((Singleton)(ch)).getMat());
+            }
+            if (ch.getOnes() == true) {
+                System.out.println("0");
+            }
+            if (ch.getId() == true) {
+                System.out.println("1");
+            }
+            if (ch.getDiag() == true) {
+                System.out.println("Diagonal Matrix");
+            }
+            if (ch.getScalar() == true) {
+                System.out.println("Scalar Matrix");
+            }
+            if (ch.getSingular() == true) {
+                System.out.println("0");
+            }
+            else {
+                System.out.println(((SquareSymSkewSingTri)(ch)).getDet());
+            }
+
+
+        }
+        else {
+            System.out.println("Determinant doesnt exist");
+        }
+        System.out.println("\n\n");
     }
 
     public static void getTransSum()
