@@ -118,9 +118,10 @@ public class Q1 {
 
         for(int i = 0; i < k; i++)
         {
-            System.out.println("rack " + (i+1) + " : ");
+            System.out.println("rack " + (i+1) + " : \n");
             for(int j = 0; j < racks.get(i).size(); j++)
             {
+                System.out.println("Slot : " + (j+1));
                 System.out.println("Name : " + racks.get(i).get(j).getName());
                 System.out.println("ISBN : " + racks.get(i).get(j).getIsbn());
                 System.out.println("Barcode : " + racks.get(i).get(j).getBarcode());

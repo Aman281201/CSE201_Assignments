@@ -1,6 +1,31 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Q2 {
+
+
+    public class genericList <T> {
+        private ArrayList<T> list;
+
+        public genericList(){
+            list = new ArrayList<>();
+        }
+
+        public void add (T obj)
+        {
+            list.add(obj);
+        }
+
+        public T get(int i)
+        {
+            return list.get(i);
+        }
+
+        public set (int i, T obj)
+        {
+            list.set(i,obj);
+        }
+    }
 
     public static Scanner sc = new Scanner(System.in);
 
@@ -51,6 +76,8 @@ public class Q2 {
 
         public int[][] generate()
         {
+            int[][] x = new int[1][1];
+            return x;
         }
     }
 
@@ -88,10 +115,28 @@ public class Q2 {
 
         public int[][][] generate()
         {
+            int[][][] x = new int[1][1][1];
+            return x;
         }
     }
 
+
+
+
+
     // functions
+
+
+
+    public static void display(boolean isColoured)
+    {
+
+    }
+
+    public static void update(boolean isColoured)
+    {
+
+    }
 
     public static void getInput(boolean isColoured)
     {
@@ -139,6 +184,7 @@ public class Q2 {
                     case 4->update(choice==2);
                     case 5->makeNegative(choice==2);
                     case 6->break;
+                    default-> System.out.println("please enter the correct choice");
                 }
             }
 
