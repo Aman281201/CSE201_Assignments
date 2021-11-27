@@ -9,10 +9,6 @@ public class Main {
     public static Scanner sc = new Scanner(System.in);
     public static ArrayList<Matrix> matrices = new ArrayList<>();
 
-//    public static ArrayList<Matrix> SqMat = new ArrayList<>();
-//    public static ArrayList<Matrix> RectMat = new ArrayList<>();
-//    public static ArrayList<Matrix> SymMat = new ArrayList<>();
-//    public static ArrayList<Matrix> SkewMat = new ArrayList<>();
 
     public static ArrayList<ArrayList<Integer>> retTranspose(ArrayList<ArrayList<Integer>> m)
     {
